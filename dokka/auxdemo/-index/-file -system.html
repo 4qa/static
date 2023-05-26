@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>File System</title>
+    <link href="../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../styles/style.css" rel="Stylesheet">
+<link href="../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../styles/main.css" rel="Stylesheet">
+<link href="../styles/prism.css" rel="Stylesheet">
+<link href="../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../index.html">
+                    <span>Dokka Project with AuxDoc</span>
+            </a>
+    </div>
+    <div>
+1.9.0    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="Dokka Project with AuxDoc::.aux_doc/File System///PointingToDeclaration//0">
+  <div class="breadcrumbs"><a href="../index.html">Index</a><span class="delimiter">/</span><span class="current">File System</span></div>
+  <div class="cover ">
+    <div class="cover ">
+      <h1 class="">File System</h1>
+      <p class="paragraph">Okio's file system is designed to be easy, testable, multiplatform, and efficient.</p>
+      <h3 class=""> Easy</h3>
+      <p class="paragraph">Reading and writing files is concise yet flexible.</p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">val path = &quot;README.md&quot;.toPath()<br><br>val readmeContent = FileSystem.SYSTEM.read(path) {<br>  readUtf8()<br>}<br><br>val updatedContent = readmeContent.replace(&quot;red&quot;, &quot;blue&quot;)<br><br>FileSystem.SYSTEM.write(path) {<br>  writeUtf8(updatedContent)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <h3 class=""> Testable</h3>
+      <p class="paragraph">It's easy to swap out the real file system with a fake. This makes tests run faster and more reliably.</p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">val fileSystem = FakeFileSystem()<br>val userHome = &quot;/Users/sandy&quot;.toPath()<br>val gitConfig = userHome / &quot;.gitconfig&quot;<br><br>fileSystem.createDirectories(userHome)<br>val original = &quot;&quot;&quot;<br>    |[user]<br>    |  email = sandy@example.com<br>    |&quot;&quot;&quot;.trimMargin()<br>fileSystem.write(gitConfig) { writeUtf8(original) }<br><br>GitConfigFixer(fileSystem).fix(userHome)<br><br>val expected = &quot;&quot;&quot;<br>  |[user]<br>  |  email = sandy@example.com<br>  |[diff]<br>  |  renames = true<br>  |  indentHeuristic = on<br>  &quot;&quot;&quot;.trimIndent()<br>assertEquals(expected, fileSystem.read(gitConfig) { readUtf8() })</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+      <p class="paragraph">With <code class="lang-kotlin">ForwardingFileSystem</code> you can easily inject faults to confirm your program is graceful even when the user's disk fills up.</p>
+      <h3 class=""> Multiplatform</h3>
+      <p class="paragraph">Okio’s <code class="lang-kotlin">Path</code> class supports Windows-style (like <code class="lang-kotlin">C:\autoexec.bat</code>) and UNIX-style paths (like <code class="lang-kotlin">/etc/passwd</code>). It supports manipulating Windows paths on UNIX, and UNIX paths on Windows.</p>
+      <p class="paragraph">The system <code class="lang-kotlin">FileSystem</code> abstracts over these platform APIs:</p>
+      <ul>
+        <li>
+          <p class="paragraph">Android API levels <26: <a href="https://developer.android.com/reference/java/io/File">java.io.File</a></p>
+        </li>
+        <li>
+          <p class="paragraph">Java and Android API level 26+: <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/FileSystem.html">java.nio.file</a></p>
+        </li>
+        <li>
+          <p class="paragraph">Linux: <a href="https://www.kernel.org/doc/man-pages/">man pages</a></p>
+        </li>
+        <li>
+          <p class="paragraph">UNIX: <a href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdio.h.html">stdio.h</a></p>
+        </li>
+        <li>
+          <p class="paragraph">Windows: <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/">fileapi.h</a></p>
+        </li>
+        <li>
+          <p class="paragraph">Node.js: <a href="https://nodejs.org/api/fs.html">file system</a></p>
+        </li>
+      </ul>
+      <h3 class=""> Efficient</h3>
+      <p class="paragraph">Read and write operations integrate with Okio buffers to reduce the number of system calls.</p>
+      <p class="paragraph">It exposes high-level operations like <code class="lang-kotlin">atomicMove()</code> and <code class="lang-kotlin">metadata</code> to get the OS to do all the work when appropriate.</p>
+      <h2 class=""> Known Issues</h2>
+      <p class="paragraph">Okio's implementation is constrained by the capabilities its underlying APIs. This page is an overview of these limitations.</p>
+      <h3 class=""> All Platforms</h3>
+      <ul>
+        <li>
+          <p class="paragraph">There are no APIs for file permissions, watches, volume management, memory mapping, or locking.</p>
+        </li>
+        <li>
+          <p class="paragraph">Paths that cannot be represented as UTF-8 strings are unsupported. The underlying APIs that Okio    calls through, including <code class="lang-kotlin">java.io.File</code>, all treat paths as strings.</p>
+        </li>
+      </ul>
+      <h3 class=""> Kotlin/JVM</h3>
+      <h4 class=""> On Android, API level less than 26:</h4>
+      <ul>
+        <li>
+          <p class="paragraph">Creating and accessing symlinks is unsupported.</p>
+        </li>
+      </ul>
+      <h4 class=""> On Windows:</h4>
+      <ul>
+        <li>
+          <p class="paragraph"><code class="lang-kotlin">FileSystem.atomicMove()</code> fails if the target file already exists.</p>
+        </li>
+      </ul>
+      <h3 class=""> Kotlin/Native</h3>
+      <ul>
+        <li>
+          <p class="paragraph">FakeFileSystem does not support concurrent use. We are <a href="https://github.com/square/okio/issues/950">holding off on this</a>    until the upcoming memory model is released.</p>
+        </li>
+      </ul>
+      <h4 class=""> On Windows:</h4>
+      <ul>
+        <li>
+          <p class="paragraph">Creating and accessing symlinks is unsupported.</p>
+        </li>
+      </ul>
+      <h3 class=""> Kotlin/JS</h3>
+      <ul>
+        <li>
+          <p class="paragraph">NodeJsFileSystem's <code class="lang-kotlin">source()</code> and <code class="lang-kotlin">sink()</code> cannot access UNIX pipes.</p>
+        </li>
+        <li>
+          <p class="paragraph">Instead of returning null, <code class="lang-kotlin">NodeJsFileSystem.metadataOrNull()</code> throws <code class="lang-kotlin">IOException</code> if the path    is invalid. (In the Node.js API there's no mechanism to differentiate between a failure to read    a valid path and a rejection of an invalid path.)</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Multiplatform</title>
+    <link href="../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../styles/style.css" rel="Stylesheet">
+<link href="../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../styles/main.css" rel="Stylesheet">
+<link href="../styles/prism.css" rel="Stylesheet">
+<link href="../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../index.html">
+                    <span>Dokka Project with AuxDoc</span>
+            </a>
+    </div>
+    <div>
+1.9.0    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="Dokka Project with AuxDoc::.aux_doc/Multiplatform///PointingToDeclaration//0">
+  <div class="breadcrumbs"><a href="../index.html">Index</a><span class="delimiter">/</span><span class="current">Multiplatform</span></div>
+  <div class="cover ">
+    <div class="cover ">
+      <h1 class="">Multiplatform</h1>
+      <p class="paragraph">Okio is a <a href="https://kotlinlang.org/docs/reference/multiplatform.html">Kotlin Multiplatform</a> project. We're still completing our feature coverage.</p>
+      <h3 class=""> Compression (Deflater, Inflater, Gzip)</h3>
+      <p class="paragraph">JVM-only.</p>
+      <h3 class=""> Concurrency (Pipe, Timeouts, Throttler)</h3>
+      <p class="paragraph">JVM-only.</p>
+      <p class="paragraph">Timeout is on all platforms, but only the JVM has a useful implementation.</p>
+      <h3 class=""> Core (Buffer, ByteString, Source, Sink)</h3>
+      <p class="paragraph">Available on all platforms.</p>
+      <h3 class=""> File System</h3>
+      <p class="paragraph">Available on all platforms. For JavaScript this requires <a href="https://nodejs.org/api/fs.html">Node.js</a>.</p>
+      <h3 class=""> Hashing</h3>
+      <p class="paragraph">Okio includes Kotlin implementations of MD5, SHA-1, SHA-256, and SHA-512. This includes both hash functions and HMAC functions.</p>
+      <p class="paragraph">Okio uses the built-in implementations of these functions on the JVM.</p>
+      <h2 class=""> Gradle configuration</h2>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">// build.gradle.kts<br>kotlin {<br>    sourceSets {<br>        val okioVersion = &quot;3.XXX&quot;<br>        val commonMain by getting {<br>            dependencies {<br>                implementation(&quot;com.squareup.okio:okio:$okioVersion&quot;)<br>            }<br>        }<br>        val jsMain by getting {<br>            dependencies {<br>                implementation(&quot;com.squareup.okio:okio-nodefilesystem:$okioVersion&quot;)<br>            }<br>        }<br>        val commonTest by getting {<br>            dependencies {<br>                implementation(&quot;com.squareup.okio:okio-fakefilesystem:$okioVersion&quot;)<br>            }<br>        }<br>    }<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>

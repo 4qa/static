@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Overview</title>
+    <link href="../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../styles/style.css" rel="Stylesheet">
+<link href="../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../styles/main.css" rel="Stylesheet">
+<link href="../styles/prism.css" rel="Stylesheet">
+<link href="../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../index.html">
+                    <span>Dokka Project with AuxDoc</span>
+            </a>
+    </div>
+    <div>
+1.9.0    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="Dokka Project with AuxDoc::.aux_doc/Overview///PointingToDeclaration//0">
+  <div class="breadcrumbs"><a href="../index.html">Index</a><span class="delimiter">/</span><span class="current">Overview</span></div>
+  <div class="cover ">
+    <div class="cover ">
+      <h1 class="">Okio</h1>
+      <h2 class=""> Content List From okio</h2>
+      <ul>
+        <li>
+          <p class="paragraph"><a href="-file -system.html">File System</a></p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="-multiplatform.html">Multiplatform</a></p>
+        </li>
+        <li>
+          <p class="paragraph"><a href="-security.html">Security</a></p>
+        </li>
+      </ul>
+      <p class="paragraph">Okio is a library that complements <code class="lang-kotlin">java.io</code> and <code class="lang-kotlin">java.nio</code> to make it much easier to access, store, and process your data. It started as a component of <span data-unresolved-link=".aux_doc/1///PointingToDeclaration/">OkHttp</span>, the capable HTTP client included in Android. It's well-exercised and ready to solve new problems.</p>
+      <h2 class=""> ByteStrings and Buffers</h2>
+      <p class="paragraph">Okio is built around two types that pack a lot of capability into a straightforward API:</p>
+      <ul>
+        <li>
+          <p class="paragraph"><span data-unresolved-link=".aux_doc/3///PointingToDeclaration/"><strong>ByteString</strong></span> is an immutable sequence of bytes. For character data, <code class="lang-kotlin">String</code>    is fundamental. <code class="lang-kotlin">ByteString</code> is String's long-lost brother, making it easy to    treat binary data as a value. This class is ergonomic: it knows how to encode    and decode itself as hex, base64, and UTF-8.</p>
+        </li>
+        <li>
+          <p class="paragraph"><span data-unresolved-link=".aux_doc/4///PointingToDeclaration/"><strong>Buffer</strong></span> is a mutable sequence of bytes. Like <code class="lang-kotlin">ArrayList</code>, you don't need    to size your buffer in advance. You read and write buffers as a queue: write    data to the end and read it from the front. There's no obligation to manage    positions, limits, or capacities.</p>
+        </li>
+      </ul>
+      <p class="paragraph">Internally, <code class="lang-kotlin">ByteString</code> and <code class="lang-kotlin">Buffer</code> do some clever things to save CPU and memory. If you encode a UTF-8 string as a <code class="lang-kotlin">ByteString</code>, it caches a reference to that string so that if you decode it later, there's no work to do.</p>
+      <p class="paragraph"><code class="lang-kotlin">Buffer</code> is implemented as a linked list of segments. When you move data from one buffer to another, it <i>reassigns ownership</i> of the segments rather than copying the data across. This approach is particularly helpful for multithreaded programs: a thread that talks to the network can exchange data with a worker thread without any copying or ceremony.</p>
+      <h2 class=""> Sources and Sinks</h2>
+      <p class="paragraph">An elegant part of the <code class="lang-kotlin">java.io</code> design is how streams can be layered for transformations like encryption and compression. Okio includes its own stream types called <span data-unresolved-link=".aux_doc/5///PointingToDeclaration/"><code class="lang-kotlin">Source</code></span> and <span data-unresolved-link=".aux_doc/6///PointingToDeclaration/"><code class="lang-kotlin">Sink</code></span> that work like <code class="lang-kotlin">InputStream</code> and <code class="lang-kotlin">OutputStream</code>, but with some key differences:</p>
+      <ul>
+        <li>
+          <p class="paragraph"><strong>Timeouts.</strong> The streams provide access to the timeouts of the underlying    I/O mechanism. Unlike the <code class="lang-kotlin">java.io</code> socket streams, both <code class="lang-kotlin">read()</code> and    <code class="lang-kotlin">write()</code> calls honor timeouts.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Easy to implement.</strong> <code class="lang-kotlin">Source</code> declares three methods: <code class="lang-kotlin">read()</code>, <code class="lang-kotlin">close()</code>,    and <code class="lang-kotlin">timeout()</code>. There are no hazards like <code class="lang-kotlin">available()</code> or single-byte reads    that cause correctness and performance surprises.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Easy to use.</strong> Although <i>implementations</i> of <code class="lang-kotlin">Source</code> and <code class="lang-kotlin">Sink</code> have only    three methods to write, <i>callers</i> are given a rich API with the    <span data-unresolved-link=".aux_doc/7///PointingToDeclaration/"><code class="lang-kotlin">BufferedSource</code></span> and <span data-unresolved-link=".aux_doc/8///PointingToDeclaration/"><code class="lang-kotlin">BufferedSink</code></span> interfaces. These interfaces give you    everything you need in one place.</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>No artificial distinction between byte streams and char streams.</strong> It's all    data. Read and write it as bytes, UTF-8 strings, big-endian 32-bit integers,    little-endian shorts; whatever you want. No more <code class="lang-kotlin">InputStreamReader</code>!</p>
+        </li>
+        <li>
+          <p class="paragraph"><strong>Easy to test.</strong> The <code class="lang-kotlin">Buffer</code> class implements both <code class="lang-kotlin">BufferedSource</code> and    <code class="lang-kotlin">BufferedSink</code> so your test code is simple and clear.</p>
+        </li>
+      </ul>
+      <p class="paragraph">Sources and sinks interoperate with <code class="lang-kotlin">InputStream</code> and <code class="lang-kotlin">OutputStream</code>. You can view any <code class="lang-kotlin">Source</code> as an <code class="lang-kotlin">InputStream</code>, and you can view any <code class="lang-kotlin">InputStream</code> as a <code class="lang-kotlin">Source</code>. Similarly for <code class="lang-kotlin">Sink</code> and <code class="lang-kotlin">OutputStream</code>.</p>
+      <h2 class=""> Presentations</h2>
+      <p class="paragraph"><span data-unresolved-link=".aux_doc/ok_libraries_talk///PointingToDeclaration/">A Few “Ok” Libraries</span> (<span data-unresolved-link=".aux_doc/ok_libraries_slides///PointingToDeclaration/">slides</span>): An introduction to Okio and three libraries written with it.</p>
+      <p class="paragraph"><span data-unresolved-link=".aux_doc/encoding_talk///PointingToDeclaration/">Decoding the Secrets of Binary Data</span> (<span data-unresolved-link=".aux_doc/encoding_slides///PointingToDeclaration/">slides</span>): How data encoding works and how Okio does it.</p>
+      <p class="paragraph"><span data-unresolved-link=".aux_doc/ok_multiplatform_talk///PointingToDeclaration/">Ok Multiplatform!</span> (<span data-unresolved-link=".aux_doc/ok_multiplatform_slides///PointingToDeclaration/">slides</span>): How we changed Okio’s implementation language from Java to Kotlin.</p>
+      <h2 class=""> Requirements</h2>
+      <p class="paragraph">Okio 2.x supports Android 4.0.3+ (API level 15+) and Java 7+.</p>
+      <p class="paragraph">Okio 3.x supports Android 4.0.3+ (API level 15+) and Java 8+.</p>
+      <p class="paragraph">Okio depends on the <span data-unresolved-link=".aux_doc/kotlin///PointingToDeclaration/">Kotlin standard library</span>. It is a small library with strong backward-compatibility.</p>
+      <h2 class=""> Releases</h2>
+      <p class="paragraph">Our <span data-unresolved-link=".aux_doc/changelog///PointingToDeclaration/">change log</span> has release history.</p>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">implementation(&quot;com.squareup.okio:okio:3.3.0&quot;)</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+<details>
+   <summary>Snapshot builds are also available</summary>      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">repositories {<br>    maven(&quot;https://s01.oss.sonatype.org/content/repositories/snapshots/&quot;)<br>}<br><br>dependencies {<br>   implementation(&quot;com.squareup.okio:okio:3.3.0&quot;)<br>}</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+</details>      <h2 class=""> R8 / ProGuard</h2>
+      <p class="paragraph">If you are using R8 or ProGuard add the options from <span data-unresolved-link=".aux_doc/proguard///PointingToDeclaration/">this file</span>.</p>
+      <h2 class=""> License</h2>
+      <div class="sample-container">
+        <pre><code class="block lang-kotlin" theme="idea">Copyright 2013 Square, Inc.
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</code></pre>
+<span class="top-right-position"><span class="copy-icon"></span>
+          <div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div>
+        </span></div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
